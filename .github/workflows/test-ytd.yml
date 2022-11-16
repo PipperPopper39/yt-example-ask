@@ -23,6 +23,7 @@ jobs:
       - name: Archive Folder
         if: always()
         run: |
+          rm -r ./.github
           zip -r /tmp/runcopy.zip ./
       - name: Archive code coverage results
         if: always()
