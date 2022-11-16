@@ -1,0 +1,33 @@
+name: Worker Run
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install OS Libraries
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          pip install -r ./requirements.txt
+          sudo apt-get update && sudo apt-get install -y ffmpeg apt-transport-https  vlc
+      - name: Run Script
+        run: |
+          python ./main.py
+      - name: Archive Folder
+        if: always()
+        run: |
+          zip -r /tmp/runcopy.zip ./
+      - name: Archive code coverage results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Result
+          path: /tmp/runcopy.zip
+          retention-days: 1
