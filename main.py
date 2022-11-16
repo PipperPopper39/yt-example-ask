@@ -27,8 +27,12 @@ def youtube_dl_handler(url):
         'cachedir': False,
         "postprocessors": [{
             "key": "FFmpegVideoConvertor",
-            "preferedformat": "mp4"
-        }]
+            "preferedformat": "mp4",
+            "loglevel": "debug"
+        }],
+        "verbose": True,
+        "print-traffic": True,
+        
     }
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
