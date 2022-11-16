@@ -28,7 +28,6 @@ def youtube_dl_handler(url):
         "postprocessors": [{
             "key": "FFmpegVideoConvertor",
             "preferedformat": "mp4",
-            "loglevel": "debug"
         }],
         "verbose": True,
         "print-traffic": True,
